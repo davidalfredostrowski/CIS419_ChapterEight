@@ -36,30 +36,28 @@ avatar
 const Feed = () => {
     const [postContent, setPostContent] = useState('');
     const { loading, error, data, fetchMore } = useQuery(GET_POSTS);
-   // const [addPost] = useMutation(ADD_POST);
-    const [addPost] = useMutation(ADD_POST, { refetchQueries: [{ query: GET_POSTS }]});
-
-	//const [addPost] = useMutation(ADD_POST, {
-//	update(cache, { data: {addPost }})   {
-//	const data = cache.readQuery({ query: GET_POSTS });
-//	const newData = { posts: [addPost, ...data.posts]};
-//	cache.writeQuery({ query: GET_POSTS, data: newData });
-//}
-//});
-
-
-
+    const [addPost] = useMutation(ADD_POST);
+//const [addPost] = useMutation(ADD_POST, { refetchQueries: [{ query: GET_POSTS }]});
     const handleSubmit = (event) => {
     event.preventDefault();
     addPost({ variables: { post: { text: postContent }}});
-    setPostContent(''); 
+
+//	const handleSubmit = (event) => {
+//      event.preventDefault();
+//    const newPost = {
+//            id: posts.length + 1,
+//            text: postContent,
+//            user: {
+//                avatar: '/uploads/avatar1.png',
+//                username: 'Fake User' } };
+  //      setPosts([newPost, ...posts]);
+        setPostContent(''); 
 };
-if (loading) return 'Loading...';
-if (error) return `Error! ${error.message}`;
+    if (loading) return 'Loading...';
+    if (error) return `Error! ${error.message}`;
 
-const { posts } = data;
-
-return (
+ const { posts } = data;
+    return (
         <div className="container">
             <div className="postForm">
                 <form onSubmit={handleSubmit}>
