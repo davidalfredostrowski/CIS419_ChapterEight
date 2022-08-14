@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { gql, useQuery, useMutation, InMemoryCache } from '@apollo/client';
-
+import Post from './components/post';
 
 const GET_POSTS=gql`
 query {
@@ -39,15 +39,13 @@ const Feed = () => {
    // const [addPost] = useMutation(ADD_POST);
     const [addPost] = useMutation(ADD_POST, { refetchQueries: [{ query: GET_POSTS }]});
 
-	//const [addPost] = useMutation(ADD_POST, {
+//const [addPost] = useMutation(ADD_POST, {
 //	update(cache, { data: {addPost }})   {
 //	const data = cache.readQuery({ query: GET_POSTS });
 //	const newData = { posts: [addPost, ...data.posts]};
 //	cache.writeQuery({ query: GET_POSTS, data: newData });
 //}
 //});
-
-
 
     const handleSubmit = (event) => {
     event.preventDefault();
@@ -69,20 +67,14 @@ return (
             </div>
             <div className="feed">
                 {posts.map((post, i) =>
-                    <div key={post.id} className="post">
-                        <div className="header">
-            		<img src={post.user.avatar} />
-			<h2>{post.user.username}</h2>
-			</div>
-                        <p className="content">
-                            {post.text}  </p> </div> )}         </div>        </div>)}
+                   <Post key={post.id} post={post}/>
+	        )} 
+            </div>  
+
+
+	</div>)}
 
 
 export default Feed
-
-
-
-
-
 
 
