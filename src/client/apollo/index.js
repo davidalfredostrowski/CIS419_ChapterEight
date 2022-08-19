@@ -1,5 +1,6 @@
-import { ApolloClient, InMemoryCache, from, HttpLink } from '@apollo/client';
+import { ApolloClient, InMemoryCache, from } from '@apollo/client';
 import { onError } from "@apollo/client/link/error";
+import { createUploadLink } from 'apollo-upload-client';
 
 const AuthLink = (operation, next) => {
   const token = localStorage.getItem('jwt');
@@ -33,8 +34,8 @@ const client = new ApolloClient({
       }
     }),
     AuthLink,
-    new HttpLink({
-      uri: 'http://ec2-18-236-158-34.us-west-2.compute.amazonaws.com:8000/graphql',
+    createUploadLink({
+      uri: 'http://ec2-54-184-125-204.us-west-2.compute.amazonaws.com:8000/graphql',
       credentials: 'same-origin',
     }),
  ]),
